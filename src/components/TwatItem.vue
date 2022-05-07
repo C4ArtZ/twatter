@@ -32,7 +32,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 
 .twat-item {
   padding: 20px;
@@ -43,14 +43,18 @@ export default {
   cursor: pointer;
   transition: all 0.25s ease;
   margin-bottom: 10px;
+
+  &:hover {
+    transform: scale(1.05, 1.05);
+  }
+
+  .twat-item__user {
+    font-weight: bold;
+  }
 }
 
-.twat-item:hover {
-  transform: scale(1.05, 1.05);
-}
 
-.twat-item__user {
-  font-weight: bold;
-}
+
+
 
 </style>

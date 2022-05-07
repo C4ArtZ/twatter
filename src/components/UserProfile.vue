@@ -8,8 +8,8 @@
     <div class="user-profile__follower-count">
       <strong>Followers: </strong> {{followers}}
     </div>
-    <form class="user-profile__create-twat" @submit.prevent="createNewTwat">
-      <label for="newTwat"><strong>New Twat</strong></label>
+    <form class="user-profile__create-twat" @submit.prevent="createNewTwat" :class="{'--exceeded': newTwatCharacterCount > 180}">
+      <label for="newTwat"><strong>New Twat</strong> ({{newTwatCharacterCount}}/180)</label>
       <textarea id="newTwat" rows="4" v-model="newTwatContent"></textarea>
 
       <div class="user-profile__create-twat-type">
@@ -81,8 +81,8 @@ export default {
     }
   },
   computed: {
-    fullName() {
-      return `${this.user.firstname} ${this.user.lastname}`;
+    newTwatCharacterCount() {
+      return this.newTwatContent.length;
     }
   },
   methods: {
@@ -108,42 +108,51 @@ export default {
 }
 </script>
 
-<style>
-
-h1 {
-  margin: 0 0 10px 0;
-}
+<style lang="scss" scoped>
 
 .user-profile {
   display: grid;
   grid-template-columns: 1fr 3fr;
   width: 100%;
   padding: 50px 5%;
-}
 
-.user-profile__user-panel {
-  display: flex;
-  flex-direction: column;
-  margin-right: 50px;
-  padding: 20px;
-  background-color: white;
-  border-radius: 5px;
-  border: 1px solid #dfe3e8;
-}
+  .user-profile__user-panel {
+    display: flex;
+    flex-direction: column;
+    margin-right: 50px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #dfe3e8;
 
-.user-profile__admin-badge {
-  background: rebeccapurple;
-  color: white;
-  border-radius: 5px;
-  margin-right: auto;
-  padding: 0 10px;
-  font-weight: bold;
-}
+    h1 {
+      margin: 0 0 10px 0;
+    }
 
-.user-profile__create-twat {
-  display: flex;
-  flex-direction: column;
-  margin-top: 10px;
+    .user-profile__admin-badge {
+      background: rebeccapurple;
+      color: white;
+      border-radius: 5px;
+      margin-right: auto;
+      padding: 0 10px;
+      font-weight: bold;
+    }
+
+    .user-profile__create-twat {
+      display: flex;
+      flex-direction: column;
+      padding-top: 20px;
+
+      &.--exceeded {
+        color: red;
+      }
+    }
+  }
+
+  .user-profile__twats-wrapper {
+    display: grid;
+    grid-gap: 10px;
+  }
 }
 
 </style>
